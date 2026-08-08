@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: pytest (py${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install package (editable, with dev extras)
+        run: pip install -e ".[dev]"
+
+      - name: Run tests with coverage (min 90% on core modules)
+        run: pytest --cov-fail-under=90
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-py${{ matrix.python-version }}
+          path: coverage.xml
+        if: always()
+
+      - name: Run the clone-and-run demo (must exit 0 and write reports/validation_report.md)
+        run: |
+          python examples/run_synthetic_demo.py
+          test -f reports/validation_report.md
+
+      - name: Regenerate figures (must run deterministically, no errors)
+        run: python scripts/generate_figures.py --out-dir /tmp/figures-check
+
+  lint:
+    name: ruff + mypy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install package (editable, with dev extras)
+        run: pip install -e ".[dev]"
+
+      - name: ruff check
+        run: ruff check src tests scripts examples
+
+      - name: mypy
+        run: mypy src/cmvt

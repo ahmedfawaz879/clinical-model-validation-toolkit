@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "cmvt: clinical-model-validation-toolkit"
+abstract: >-
+  A reproducible, synthetic-first validation harness for clinical prediction
+  models: DeLong AUROC comparison, calibration diagnostics, patient-level
+  cluster bootstrap, distribution-shift metrics, decidable data-integrity
+  checks, and a validation engine that separates true distribution shift from
+  information loss. Ships with negative controls demonstrating what the
+  toolkit deliberately does not claim (MAR/MNAR identifiability, composite
+  quality scores, values-only leakage detection).
+type: software
+authors:
+  - family-names: Fawaz
+    given-names: Ahmed
+repository-code: "https://github.com/ahmedfawaz879/clinical-model-validation-toolkit"
+license: MIT
+version: 0.1.0
+date-released: "2026-08-07"
+keywords:
+  - clinical prediction models
+  - external validation
+  - calibration
+  - TRIPOD+AI
+  - reproducibility
+  - distribution shift
