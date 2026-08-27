@@ -1,0 +1,6 @@
+This repository's MIT license (see LICENSE) covers the toolkit's source
+code only. It does not grant any rights to, and does not cover,
+third-party clinical datasets (e.g. MIMIC-IV, MIMIC-III, eICU-CRD), which
+remain governed by their own credentialed-access data use agreements and
+are not redistributed by this repository. See README.md, "What cannot be
+redistributed."

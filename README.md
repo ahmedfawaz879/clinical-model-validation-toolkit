@@ -257,4 +257,4 @@ throughout `src/cmvt/`.
 
 MIT — see [`LICENSE`](LICENSE). The licence covers this repository's source code
 only; it does not cover, and does not grant rights to, any third-party clinical
-dataset (see "What cannot be redistributed," above).
+dataset (see "What cannot be redistributed," above, and [`NOTICE`](NOTICE)).
